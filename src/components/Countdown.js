@@ -6,7 +6,7 @@ export default class Countdown extends React.Component {
     super(props);
     this.state = {
       timer: 0,
-      timerInitialValue: 1000 * 20,
+      timerInitialValue: 1000 * 3,
       timerStarted: false,
       timerRunning: false,
       timerReachedEnd: false,
@@ -28,9 +28,11 @@ export default class Countdown extends React.Component {
 
 
   updateCounter(value) {
-    this.setState({
-      timer: this.state.timer + value
-    });
+    if (value > 0 || this.state.timer !== 0) {
+      this.setState({
+        timer: this.state.timer + value
+      });
+    }
   }
 
   startCountdown() {
