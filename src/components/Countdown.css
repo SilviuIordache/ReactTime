@@ -1,0 +1,29 @@
+.countdown-container {
+  border: 1px solid gray;
+  padding: 3rem;
+}
+
+.timer-container {
+  display: flex;
+  justify-content: center;
+}
+
+.timer-inner-container {
+  display: flex;
+  justify-content: center;
+  width: 12rem;
+}
+
+.timer-display {
+  text-align: left;
+  padding: 0 2rem 0 2rem;
+  width: 6rem
+}
+
+.timer-btn {
+  padding: 0 1rem 0 1rem
+}
+
+.action-buttons-container {
+  margin-top: 2rem;
+}
