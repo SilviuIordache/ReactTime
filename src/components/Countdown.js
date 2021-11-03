@@ -72,7 +72,6 @@ export default class Countdown extends React.Component {
     clearInterval(this.state.timerInterval);
   }
 
-  
   msToTime(ms) {
     const msReal = ms % 1000;
 
@@ -95,39 +94,87 @@ export default class Countdown extends React.Component {
     let timer = minsDisplay + ':' + secDisplay // + ':' + msDisplay;
     return timer;
   }
-  
+
+  StartResumeButtons() {
+    if (!this.state.timerRunning) {
+      return (
+        <button className="btn btn-primary" onClick={() => {this.startCountdown()}}>
+          { !this.state.timerStarted
+            ? <span >Start</span>
+            : <span>Resume</span>
+          }
+        </button>
+      )
+    }
+  }
+
+  PauseButton() {
+    return (
+      <button className="btn btn-secondary" onClick={() => {this.pauseCountdown()}}>
+        Pause
+      </button>
+    )
+  }
+
+  ResetButton() {
+    return (
+      <button 
+        className="btn btn-warning ms-4" 
+        onClick={() => {this.resetCountdown()}}>
+        Reset
+      </button>
+    )
+  }
+
+  TimerDisplay() {
+    return (
+      <div className='timer-inner-container'>
+        <h2 className='timer-display mb-0'>
+          {this.msToTime(this.state.timer)}
+        </h2>
+      </div>
+    )
+  }
+
+  TimerDecrease() {
+    return (
+      <button 
+        onClick={ () => { this.updateCounter(-1000)}}
+        className='btn btn-secondary px-3 fw-bolder'>
+          -
+      </button>
+    )
+  }
+
+  TimerIncrease() {
+    return (
+      <button 
+        onClick={ () => { this.updateCounter(1000)}}
+        className='btn btn-secondary px-3 fw-bolder'>
+          +
+      </button>
+    )
+  }
+
   render() {
     return (
       <div className="countdown-container">
         <h1 className='mb-5'>Countdown</h1>
         <div className='timer-container'>
-          <button onClick={ () => { this.updateCounter(-1000)}} className='btn btn-secondary px-3 fw-bolder'>-</button>
-
-          <div className='timer-inner-container'>
-            <h2 className='timer-display mb-0'>
-              {this.msToTime(this.state.timer)}
-            </h2>
-          </div>
-
-          <button onClick={ () => { this.updateCounter(1000)}} className='btn btn-secondary px-3 fw-bolder'>+</button>
+          { this.TimerDecrease()}
+          { this.TimerDisplay()}
+          { this.TimerIncrease()}
         </div>
         <div className='action-buttons-container mt-5'>
           {!this.state.timerRunning && !this.state.timerReachedEnd
-            ? <button className="btn btn-primary" onClick={() => {this.startCountdown()}}>
-                { !this.state.timerStarted
-                  ? <span >Start</span>
-                  : <span>Resume</span>
-                }
-              </button>
-            : <button className="btn btn-secondary" onClick={() => {this.pauseCountdown()}}>Pause</button>
+            ? this.StartResumeButtons()
+            : this.PauseButton()
           }
-          <button 
-            className="btn btn-warning ms-4" 
-            onClick={() => {this.resetCountdown()}}>
-            Reset
-          </button>
+          { this.ResetButton()}
         </div>
-        {this.state.timerReachedEnd && <p className='mt-4'>Timer reached end</p>}
+        { this.state.timerReachedEnd && 
+          <p className='mt-4'>Timer reached end</p>
+        }
       </div>
     );
   }
