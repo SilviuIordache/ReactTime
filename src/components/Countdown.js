@@ -10,9 +10,7 @@ export default class Countdown extends React.Component {
       timerStarted: false,
       timerRunning: false,
       timerReachedEnd: false,
-      timerInterval: '',
-      startDate: '',
-      endDate: '',
+      timerInterval: ''
     };
   }
 
@@ -39,8 +37,7 @@ export default class Countdown extends React.Component {
     this.setState({
       timerRunning: true,
       timerStarted: true,
-      timerInterval: setInterval(() => this.tick(), 10),
-      startDate: new Date()
+      timerInterval: setInterval(() => this.tick(), 10)
     });
   }
 
@@ -52,11 +49,9 @@ export default class Countdown extends React.Component {
     } else {
       this.setState({
         timerRunning: false,
-        timerReachedEnd: true,
-        endDate: new Date()
+        timerReachedEnd: true
       });
       clearInterval(this.state.timerInterval);
-      console.log((this.state.endDate - this.state.startDate) /1000)
     }
   }
 
