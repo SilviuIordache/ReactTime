@@ -42,12 +42,16 @@ export default class Countdown extends React.Component {
         timer: this.state.timer - 10
       });
     } else {
-      this.setState({
-        timerRunning: false,
-        timerReachedEnd: true
-      });
-      clearInterval(this.state.timerInterval);
+      this.runEndLogic()
     }
+  }
+
+  runEndLogic() {
+    this.setState({
+      timerRunning: false,
+      timerReachedEnd: true
+    });
+    clearInterval(this.state.timerInterval);
   }
 
   pauseCountdown() {
