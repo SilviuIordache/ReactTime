@@ -162,15 +162,21 @@ export default class Countdown extends React.Component {
     }
   }
 
+  SPRButtons() {
+    if (!this.state.timerReachedEnd) {
+      if (!this.state.timerRunning) {
+        return this.StartResumeButtons()
+      } else {
+        return this.PauseButton()
+      }
+    }
+  }
   TimerButtons() {
     return (
       <div className='action-buttons-container mt-5'>
-          {!this.state.timerRunning
-            ? this.StartResumeButtons()
-            : this.PauseButton()
-          }
-          { this.ResetButton()}
-        </div>
+        { this.SPRButtons() }
+        { this.ResetButton()}
+      </div>
     )
   }
 
