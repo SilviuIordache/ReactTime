@@ -100,7 +100,7 @@ export default class Countdown extends React.Component {
       return (
         <button className="btn btn-primary" onClick={() => {this.startCountdown()}}>
           { !this.state.timerStarted
-            ? <span >Start</span>
+            ? <span>Start</span>
             : <span>Resume</span>
           }
         </button>
@@ -156,25 +156,35 @@ export default class Countdown extends React.Component {
     )
   }
 
-  render() {
+  TimerEndMessage() {
+    if (this.state.timerReachedEnd) {
+      return <p className='mt-4'>Timer reached end</p>
+    }
+  }
+
+  TimerButtons() {
     return (
-      <div className="countdown-container">
-        <h1 className='mb-5'>Countdown</h1>
-        <div className='timer-container'>
-          { this.TimerDecrease()}
-          { this.TimerDisplay()}
-          { this.TimerIncrease()}
-        </div>
-        <div className='action-buttons-container mt-5'>
-          {!this.state.timerRunning && !this.state.timerReachedEnd
+      <div className='action-buttons-container mt-5'>
+          {!this.state.timerRunning
             ? this.StartResumeButtons()
             : this.PauseButton()
           }
           { this.ResetButton()}
         </div>
-        { this.state.timerReachedEnd && 
-          <p className='mt-4'>Timer reached end</p>
-        }
+    )
+  }
+
+  render() {
+    return (
+      <div className="countdown-container">
+        <h1 className='mb-5'>Countdown</h1>
+        <div className='timer-container'>
+          { this.TimerDecrease() }
+          { this.TimerDisplay() }
+          { this.TimerIncrease() }
+        </div>
+        { this.TimerButtons()}
+        { this.TimerEndMessage()}
       </div>
     );
   }
