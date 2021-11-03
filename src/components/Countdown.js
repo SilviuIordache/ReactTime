@@ -49,6 +49,7 @@ export default class Countdown extends React.Component {
   runEndLogic() {
     this.setState({
       timerRunning: false,
+      timerStarted: false,
       timerReachedEnd: true
     });
     clearInterval(this.state.timerInterval);
@@ -91,37 +92,42 @@ export default class Countdown extends React.Component {
     const mins = ms % 60;
     const minsDisplay = (mins >= 60) ? mins : '0' + mins;
 
-    let timer = minsDisplay + ':' + secDisplay + ':' + msDisplay;
+    let timer = minsDisplay + ':' + secDisplay // + ':' + msDisplay;
     return timer;
   }
   
   render() {
     return (
       <div className="countdown-container">
-        <h1>Countdown</h1>
+        <h1 className='mb-5'>Countdown</h1>
         <div className='timer-container'>
-          <button onClick={ () => { this.updateCounter(-1000)}} className='timer-btn'>-</button>
+          <button onClick={ () => { this.updateCounter(-1000)}} className='btn btn-secondary px-3 fw-bolder'>-</button>
 
           <div className='timer-inner-container'>
-            <h2 className='timer-display'>
+            <h2 className='timer-display mb-0'>
               {this.msToTime(this.state.timer)}
             </h2>
           </div>
-          <button onClick={ () => { this.updateCounter(1000)}} className='timer-btn'>+</button>
+
+          <button onClick={ () => { this.updateCounter(1000)}} className='btn btn-secondary px-3 fw-bolder'>+</button>
         </div>
-        <div className='action-buttons-container'>
-          {!this.state.timerRunning 
-            ? <button onClick={() => {this.startCountdown()}}>
+        <div className='action-buttons-container mt-5'>
+          {!this.state.timerRunning && !this.state.timerReachedEnd
+            ? <button className="btn btn-primary" onClick={() => {this.startCountdown()}}>
                 { !this.state.timerStarted
-                  ? <span>Start</span>
+                  ? <span >Start</span>
                   : <span>Resume</span>
                 }
               </button>
-            : <button onClick={() => {this.pauseCountdown()}}>Pause</button>
+            : <button className="btn btn-secondary" onClick={() => {this.pauseCountdown()}}>Pause</button>
           }
-          <button onClick={() => {this.resetCountdown()}}>Reset</button>
+          <button 
+            className="btn btn-warning ms-4" 
+            onClick={() => {this.resetCountdown()}}>
+            Reset
+          </button>
         </div>
-        {this.state.timerReachedEnd && <p>Timer reached end</p>}
+        {this.state.timerReachedEnd && <p className='mt-4'>Timer reached end</p>}
       </div>
     );
   }
