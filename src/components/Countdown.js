@@ -20,11 +20,6 @@ export default class Countdown extends React.Component {
     })
   }
 
-  // componentWillUnmount() {
-  //   clearInterval(this.timerID);
-  // }
-
-
   updateCounter(value) {
     if (value > 0 || this.state.timer !== 0) {
       this.setState({
