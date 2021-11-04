@@ -182,21 +182,15 @@ export default class Countdown extends React.Component {
 
   render() {
     return (
-      <div className="container  countdown-outer-container">
-        <div className="row d-flex justify-content-center">
-          <div className="col-12 col-lg-6">
-            <div className="countdown-container card bg-light">
-              <h1 className='mb-5'>Countdown</h1>
-              <div className='timer-container'>
-                { this.TimerDecrease() }
-                { this.TimerDisplay() }
-                { this.TimerIncrease() }
-              </div>
-              { this.TimerButtons()}
-              { this.TimerEndMessage()}
-            </div>
-          </div>
+      <div className="countdown-container card bg-light">
+        <h1 className='mb-5'>Countdown</h1>
+        <div className='timer-container'>
+          { this.TimerDecrease() }
+          { this.TimerDisplay() }
+          { this.TimerIncrease() }
         </div>
+        { this.TimerButtons()}
+        { this.TimerEndMessage()}
       </div>
     );
   }

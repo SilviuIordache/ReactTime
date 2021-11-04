@@ -1,4 +1,5 @@
 import React from 'react';
+import './Clock.css';
 
 export default class Clock extends React.Component {
   constructor(props) {
@@ -25,9 +26,9 @@ export default class Clock extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Clock component</h1>
-        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      <div className="card bg-light clock-container">
+        <h1>Clock</h1>
+        <h2>{this.state.date.toLocaleTimeString()}</h2>
       </div>
     );
   }
