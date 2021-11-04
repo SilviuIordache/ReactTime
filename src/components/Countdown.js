@@ -98,7 +98,7 @@ export default class Countdown extends React.Component {
   StartResumeButtons() {
     if (!this.state.timerRunning) {
       return (
-        <button className="btn btn-primary" onClick={() => {this.startCountdown()}}>
+        <button className="btn btn-primary me-3" onClick={() => {this.startCountdown()}}>
           { !this.state.timerStarted
             ? <span>Start</span>
             : <span>Resume</span>
@@ -110,7 +110,7 @@ export default class Countdown extends React.Component {
 
   PauseButton() {
     return (
-      <button className="btn btn-secondary" onClick={() => {this.pauseCountdown()}}>
+      <button className="btn btn-warning  me-3" onClick={() => {this.pauseCountdown()}}>
         Pause
       </button>
     )
@@ -119,7 +119,7 @@ export default class Countdown extends React.Component {
   ResetButton() {
     return (
       <button 
-        className="btn btn-warning ms-4" 
+        className="btn btn-danger" 
         onClick={() => {this.resetCountdown()}}>
         Reset
       </button>
@@ -173,7 +173,7 @@ export default class Countdown extends React.Component {
   }
   TimerButtons() {
     return (
-      <div className='action-buttons-container mt-5'>
+      <div className='action-buttons-container'>
         { this.SPRButtons() }
         { this.ResetButton()}
       </div>
@@ -182,15 +182,21 @@ export default class Countdown extends React.Component {
 
   render() {
     return (
-      <div className="countdown-container">
-        <h1 className='mb-5'>Countdown</h1>
-        <div className='timer-container'>
-          { this.TimerDecrease() }
-          { this.TimerDisplay() }
-          { this.TimerIncrease() }
+      <div className="container  countdown-outer-container">
+        <div className="row d-flex justify-content-center">
+          <div className="col-12 col-lg-6">
+            <div className="countdown-container card bg-light">
+              <h1 className='mb-5'>Countdown</h1>
+              <div className='timer-container'>
+                { this.TimerDecrease() }
+                { this.TimerDisplay() }
+                { this.TimerIncrease() }
+              </div>
+              { this.TimerButtons()}
+              { this.TimerEndMessage()}
+            </div>
+          </div>
         </div>
-        { this.TimerButtons()}
-        { this.TimerEndMessage()}
       </div>
     );
   }
