@@ -1,5 +1,6 @@
 import React from 'react';
-import './Countdown.css'
+import './Countdown.css';
+import TimerDisplay from '../common/TimerDisplay.js';
 
 export default class Countdown extends React.Component {
   constructor(props) {
@@ -72,29 +73,6 @@ export default class Countdown extends React.Component {
     clearInterval(this.state.timerInterval);
   }
 
-  msToTime(ms) {
-    const msReal = ms % 1000;
-
-    let msDisplay;
-    if (msReal === 0)
-      msDisplay = '00';
-    else if (msReal < 10)
-      msDisplay = '0' + msReal;
-    else
-      msDisplay = Math.round(msReal / 10)
-    ms = (ms - msReal) / 1000;
-
-    const secs = ms % 60 ;
-    const secDisplay = (secs >= 10) ? secs : '0' + secs;
-    ms = (ms - secs) / 60;
-    
-    const mins = ms % 60;
-    const minsDisplay = (mins >= 60) ? mins : '0' + mins;
-
-    let timer = minsDisplay + ':' + secDisplay // + ':' + msDisplay;
-    return timer;
-  }
-
   StartResumeButtons() {
     if (!this.state.timerRunning) {
       return (
@@ -123,16 +101,6 @@ export default class Countdown extends React.Component {
         onClick={() => {this.resetCountdown()}}>
         Reset
       </button>
-    )
-  }
-
-  TimerDisplay() {
-    return (
-      <div className='timer-inner-container'>
-        <h2 className='timer-display mb-0'>
-          {this.msToTime(this.state.timer)}
-        </h2>
-      </div>
     )
   }
 
@@ -186,7 +154,7 @@ export default class Countdown extends React.Component {
         <h1 className='mb-5'>Countdown</h1>
         <div className='timer-container'>
           { this.TimerDecrease() }
-          { this.TimerDisplay() }
+          <TimerDisplay timer={this.state.timer}/>
           { this.TimerIncrease() }
         </div>
         { this.TimerButtons()}
