@@ -7,7 +7,9 @@ export default class TimerDisplay extends React.Component {
     return (
       <div className='d-flex justify-content-center mx-3'>
         <h2 className='timer-display mb-0'>
-          {msToTime(this.props.timer, this.props.showMs)}
+          <div className='timer-inner-container'>
+            {msToTime(this.props.timer, this.props.showMs)}
+          </div>
         </h2>
       </div>
     )

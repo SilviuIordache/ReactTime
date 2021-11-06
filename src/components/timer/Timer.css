@@ -1,0 +1,8 @@
+.laps-container {
+  display: flex;
+  justify-content: center;
+}
+
+.lap {
+  padding: 1rem 2rem 1rem 2rem;
+}

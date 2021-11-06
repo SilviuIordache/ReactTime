@@ -59,13 +59,21 @@ export default class Timer extends React.Component {
 
   Laps() {
     const laps = this.state.laps.map((lap, index) => 
-      <div key={lap}>
-        {index}. {msToTime(lap, true)}
+      <div className='lap' key={lap}>
+        <strong className='me-2'>
+          Lap {index} 
+        </strong>
+        {msToTime(lap, true)}
       </div>
     );
     return (
-      <div className="laps-container">
-        {laps}
+      <div>
+        <h2 className='mt-4'>Laps</h2>
+        <div className="laps-container card">
+          <div className='laps-inner-container'>
+            {laps}
+          </div>
+        </div>
       </div>
     )
   }
@@ -86,9 +94,7 @@ export default class Timer extends React.Component {
             <button className="btn btn-secondary ms-2" onClick={() => {this.countLap()}}>Lap</button>
             <button className="btn btn-danger ms-2" onClick={() => {this.resetLaps()}}>Clear laps</button>
           </div>
-
           { this.Laps()}
-          
       </div>
     );
   }
