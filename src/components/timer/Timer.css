@@ -1,8 +1,8 @@
-.laps-container {
+.split-container {
   display: flex;
   justify-content: center;
 }
 
-.lap {
+.split {
   padding: 1rem 2rem 1rem 2rem;
 }

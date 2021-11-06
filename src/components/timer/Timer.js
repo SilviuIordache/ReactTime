@@ -10,7 +10,7 @@ export default class Timer extends React.Component {
       timer: 0,
       timerRunning: false,
       timerInterval: '',
-      laps: []
+      splits: []
     };
   }
 
@@ -42,40 +42,36 @@ export default class Timer extends React.Component {
     clearInterval(this.state.timerInterval);
     this.setState({
       timer: 0,
-      timerRunning: false
+      timerRunning: false,
+      splits: []
     })
   }
 
-  countLap() {
-    this.state.laps.push(this.state.timer)
+  registerSplit() {
+    this.state.splits.push(this.state.timer)
   }
 
-  resetLaps() {
-    this.setState({
-      laps: []
-    })
-  }
-
-
-  Laps() {
-    const laps = this.state.laps.map((lap, index) => 
-      <div className='lap' key={lap}>
+  Splits() {
+    const splits = this.state.splits.map((split, index) => 
+      <div className='split' key={split}>
         <strong className='me-2'>
-          Lap {index} 
+          {index} 
         </strong>
-        {msToTime(lap, true)}
+        {msToTime(split, true)}
       </div>
     );
-    return (
-      <div>
-        <h2 className='mt-4'>Laps</h2>
-        <div className="laps-container card">
-          <div className='laps-inner-container'>
-            {laps}
+    if (this.state.splits.length > 0) {
+      return (
+        <div>
+          <h2 className='mt-4'>Splits</h2>
+          <div className="splits-container card">
+            <div className='splits-inner-container'>
+              {splits}
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 
   render() {
@@ -91,10 +87,14 @@ export default class Timer extends React.Component {
             <button className="btn btn-danger ms-2" onClick={() => {this.resetTimer()}}>Reset</button>
           </div>
           <div className="mt-4">
-            <button className="btn btn-secondary ms-2" onClick={() => {this.countLap()}}>Lap</button>
-            <button className="btn btn-danger ms-2" onClick={() => {this.resetLaps()}}>Clear laps</button>
+            <button
+              disabled={!this.state.timerRunning}
+              className="btn btn-dark ms-2" 
+              onClick={() => {this.registerSplit()}}>
+                Split
+            </button>
           </div>
-          { this.Laps()}
+          { this.Splits()}
       </div>
     );
   }

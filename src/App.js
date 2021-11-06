@@ -8,13 +8,13 @@ function App() {
     <div className="App">
       <div className="container">
         <div className="row d-flex justify-content-center mt-4">
-          {/* <div className="col-12 col-lg-4 mb-4">
+          {/* <div className="col-12 col-lg-6 mb-4">
             <Clock/>
           </div>
-          <div className="col-12 col-lg-4 mb-4">
+          <div className="col-12 col-lg-6 mb-4">
             <Countdown/>
           </div> */}
-          <div className="col-12 col-lg-4 mb-4">
+          <div className="col-12 col-lg-6 mb-4">
             <Timer/>
           </div>
         </div>
