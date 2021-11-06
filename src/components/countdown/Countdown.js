@@ -7,7 +7,7 @@ export default class Countdown extends React.Component {
     super(props);
     this.state = {
       timer: 0,
-      timerInitialValue: 1000 * 3,
+      timerInitialValue: 1000 * 30,
       timerStarted: false,
       timerRunning: false,
       timerReachedEnd: false,
@@ -139,6 +139,7 @@ export default class Countdown extends React.Component {
       }
     }
   }
+
   TimerButtons() {
     return (
       <div className='action-buttons-container'>
@@ -150,9 +151,9 @@ export default class Countdown extends React.Component {
 
   render() {
     return (
-      <div className="countdown-container card bg-light">
+      <div className="countdown-container card bg-light h-100">
         <h1 className='mb-5'>Countdown</h1>
-        <div className='timer-container'>
+        <div className='d-flex justify-content-center'>
           { this.TimerDecrease() }
           <TimerDisplay timer={this.state.timer}/>
           { this.TimerIncrease() }

@@ -26,7 +26,7 @@ export default class Clock extends React.Component {
 
   render() {
     return (
-      <div className="card bg-light clock-container">
+      <div className="card bg-light clock-container h-100">
         <h1>Clock</h1>
         <h2>{this.state.date.toLocaleTimeString()}</h2>
       </div>
