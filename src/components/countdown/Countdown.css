@@ -2,19 +2,6 @@
   padding: 3rem;
 }
 
-
-.timer-inner-container {
-  display: flex;
-  justify-content: center;
-}
-
-.timer-display {
-  padding: 0 2rem 0 2rem;
-  width: 6rem;
-  display: flex;
-  justify-content: center;
-}
-
 .action-buttons-container {
   margin-top: 4rem;
 }

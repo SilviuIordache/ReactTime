@@ -14,23 +14,19 @@ export default class Timer extends React.Component {
     };
   }
 
-  // componentDidMount() {
-    
-  // }
-
   componentWillUnmount() {
     clearInterval(this.timerInterval);
   }
 
   tick() {
     this.setState({
-      timer: this.state.timer + 1
+      timer: this.state.timer + 10
     });
   }
 
   startTimer() {
     this.setState({
-      timerInterval: setInterval( () => this.tick(), 50 ),
+      timerInterval: setInterval( () => this.tick(), 10 ),
       timerRunning: true
     });
   }

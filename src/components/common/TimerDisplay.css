@@ -1,0 +1,6 @@
+.timer-display {
+  padding: 0 2rem 0 2rem;
+  width: 6rem;
+  display: flex;
+  justify-content: center;
+}
