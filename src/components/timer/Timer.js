@@ -88,6 +88,16 @@ export default class Timer extends React.Component {
     }
   }
 
+  StartPauseButtons() {
+    let btn;
+    if (!this.state.timerRunning) {
+        btn = <button className="btn btn-primary" onClick={() => {this.startTimer()}}>Start</button>
+    } else {
+        btn = <button className="btn btn-warning ms-2" onClick={() => {this.pauseTimer()}}>Pause</button>
+    }
+    return btn;
+  }
+
   render() {
     return (
       <div className="card bg-light clock-container h-100">
@@ -96,8 +106,7 @@ export default class Timer extends React.Component {
             <TimerDisplay timer={this.state.timer} showMs="true"/>
           </div>
           <div className="top-buttons">
-            <button className="btn btn-primary" onClick={() => {this.startTimer()}}>Start</button>
-            <button className="btn btn-warning ms-2" onClick={() => {this.pauseTimer()}}>Pause</button>
+            {this.StartPauseButtons()}
             <button className="btn btn-danger ms-2" onClick={() => {this.resetTimer()}}>Reset</button>
           </div>
           <div className="mt-4">
