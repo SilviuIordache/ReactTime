@@ -10,9 +10,7 @@ export default class Timer extends React.Component {
       timer: 0,
       timerRunning: false,
       timerInterval: '',
-      splits: [],
-      splitDetlas: [],
-      lastSplitDelta: 0
+      splits: []
     };
   }
 
@@ -51,27 +49,27 @@ export default class Timer extends React.Component {
 
   registerSplit() {
     this.setState({
-      splits: [...this.state.splits, this.state.timer],
-      lastSplitDelta: this.state.timer - this.state.lastSplitDelta
-    });
-
-    // this.setState({
-    //   splitDeltas: [...this.state.splitDeltas, this.lastSplitDelta]
-    // })
+      splits: [...this.state.splits, this.state.timer]
+    })
   }
+
+  SplitDelta(props) {
+    let delta;
+    if (props.index > 0) {
+      delta = msToTime(this.state.splits[props.index] - this.state.splits[props.index - 1], true)
+    } else {
+      delta = msToTime(this.state.splits[props.index], true)
+    }
+    return <span className="me-5">{delta}</span>
+  }
+
 
   Splits() {
     const splits = this.state.splits.map((split, index) => 
       <div className='split' key={split}>
-        <strong className='me-2'>
-          {index}. 
-        </strong>
-        <span>
-          {msToTime(split, true)}
-        </span>
-        <span className="ms-5">
-          {/* {msToTime(this.state.splitDeltas[index], true)} */}
-        </span>
+        <strong className='me-2'>{index}. </strong>
+        { this.SplitDelta(index={index}) }
+        <span> {msToTime(split, true)} </span>
       </div>
     );
     if (this.state.splits.length > 0) {
