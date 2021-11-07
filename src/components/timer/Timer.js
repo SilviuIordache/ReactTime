@@ -60,7 +60,7 @@ export default class Timer extends React.Component {
     } else {
       delta = msToTime(this.state.splits[props.index], true)
     }
-    return <span className="me-5">{delta}</span>
+    return <span className="me-5 text-info">{delta}</span>
   }
 
 
