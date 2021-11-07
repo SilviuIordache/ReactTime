@@ -1,6 +1,15 @@
 .timer-display {
+  font-size: 3rem;
+  font-weight: 600;
   padding: 0 0rem 0 1rem;
-  width: 10rem;
   display: flex;
   justify-content: flex-start;
+}
+
+.timer-long {
+  width: 14rem
+}
+
+.timer-short {
+  width: 10rem
 }

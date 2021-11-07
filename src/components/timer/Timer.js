@@ -99,22 +99,22 @@ export default class Timer extends React.Component {
     return (
       <div className="card bg-light clock-container h-100">
         <h1 className="mb-4">Timer</h1>
-          <div className="mb-4">
-            <TimerDisplay timer={this.state.timer} showMs="true"/>
-          </div>
-          <div className="top-buttons">
-            {this.StartPauseButtons()}
-            <button className="btn btn-danger ms-2" onClick={() => {this.resetTimer()}}>Reset</button>
-          </div>
-          <div className="mt-4">
-            <button
-              disabled={!this.state.timerRunning}
-              className="btn btn-dark ms-2" 
-              onClick={() => {this.registerSplit()}}>
-                Split
-            </button>
-          </div>
-          { this.Splits()}
+        <div className="mb-4">
+          <TimerDisplay timer={this.state.timer} showMs="true"/>
+        </div>
+        <div className="top-buttons">
+          {this.StartPauseButtons()}
+          <button className="btn btn-danger ms-2" onClick={() => {this.resetTimer()}}>Reset</button>
+        </div>
+        <div className="mt-4">
+          <button
+            disabled={!this.state.timerRunning}
+            className="btn btn-dark ms-2" 
+            onClick={() => {this.registerSplit()}}>
+              Split
+          </button>
+        </div>
+        { this.Splits()}
       </div>
     );
   }
