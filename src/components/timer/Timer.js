@@ -55,19 +55,20 @@ export default class Timer extends React.Component {
 
   SplitDelta(props) {
     let delta;
+    let className='ms-2 me-4';
     if (props.index > 0) {
       delta = msToTime(this.state.splits[props.index] - this.state.splits[props.index - 1], true)
     } else {
       delta = msToTime(this.state.splits[props.index], true)
     }
-    return <span className="me-5">{delta}</span>
+    return <span className={className}>{delta}</span>
   }
 
 
   Splits() {
     const splits = this.state.splits.map((split, index) => 
       <div className='split' key={split}>
-        <strong className='me-2 '>{index}. </strong>
+        <strong className='me-2 '>#{index} </strong>
         { this.SplitDelta(index={index}) }
         <span className='text-muted'> {msToTime(split, true)} </span>
       </div>
@@ -75,11 +76,9 @@ export default class Timer extends React.Component {
     if (this.state.splits.length > 0) {
       return (
         <div>
-          <h2 className='mt-4'>Splits</h2>
-          <div className="splits-container card">
-            <div className='splits-inner-container'>
-              {splits}
-            </div>
+          <div className="card mt-4">
+            <h2 className='mt-4 mb-3'>Splits</h2>
+            {splits}
           </div>
         </div>
       )
