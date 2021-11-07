@@ -1,11 +1,11 @@
-import './App.css';
+import "./App.css";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Redirect } from "react-router-dom";
 
-import Countdown from './components/countdown/Countdown.js';
-import Clock from './components/clock/Clock.js';
-import Timer from './components/timer/Timer.js';
-import Navbar from './components/navbar/Navbar.js';
+import Countdown from "./components/countdown/Countdown.js";
+import Clock from "./components/clock/Clock.js";
+import Timer from "./components/timer/Timer.js";
+import Navigation from "./components/navigation/Navigation.js";
 
 function App() {
   return (
@@ -13,13 +13,16 @@ function App() {
       <div className="container">
         <div className="row d-flex justify-content-center mt-5">
           <div className="col-12 col-lg-6">
-            <Navbar/>
+            <Navigation />
           </div>
         </div>
 
         <div className="row d-flex justify-content-center">
           <div className="col-12 col-lg-6 mb-4">
             <Routes>
+              {/* <Route exact path="/">
+                <Redirect to="/countdown" />
+              </Route> */}
               <Route path="/" element={<Countdown />} />
               <Route path="clock" element={<Clock />} />
               <Route path="timer" element={<Timer />} />
