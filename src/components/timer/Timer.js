@@ -68,7 +68,7 @@ export default class Timer extends React.Component {
   Splits() {
     const splits = this.state.splits.map((split, index) => 
       <div className='split' key={split}>
-        <strong className='me-2 '>#{index} </strong>
+        <strong className='me-2'>#{index} </strong>
         { this.SplitDelta(index={index}) }
         <span className='text-muted'> {msToTime(split, true)} </span>
       </div>
