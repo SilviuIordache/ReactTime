@@ -21,7 +21,7 @@ export default class Countdown extends React.Component {
     })
   }
 
-  updateCounter(value) {
+  updateCounter = (value) => {
     if (value > 0 || this.state.timer !== 0) {
       this.setState({
         timer: this.state.timer + value
@@ -29,7 +29,7 @@ export default class Countdown extends React.Component {
     }
   }
 
-  startCountdown() {
+  startCountdown = () => {
     this.setState({
       timerRunning: true,
       timerStarted: true,
@@ -37,7 +37,7 @@ export default class Countdown extends React.Component {
     });
   }
 
-  tick() {
+  tick = () => {
     if (this.state.timer > 0) {
       this.setState({
         timer: this.state.timer - 10
@@ -47,7 +47,7 @@ export default class Countdown extends React.Component {
     }
   }
 
-  runEndLogic() {
+  runEndLogic = () => {
     this.setState({
       timerRunning: false,
       timerStarted: false,
@@ -56,14 +56,14 @@ export default class Countdown extends React.Component {
     clearInterval(this.state.timerInterval);
   }
 
-  pauseCountdown() {
+  pauseCountdown = () => {
     clearInterval(this.state.timerInterval);
     this.setState({
       timerRunning: false
     })
   }
 
-  resetCountdown() {
+  resetCountdown = () => {
     this.setState({
       timer: this.state.timerInitialValue,
       timerStarted: false,
@@ -73,94 +73,78 @@ export default class Countdown extends React.Component {
     clearInterval(this.state.timerInterval);
   }
 
-  StartResumeButtons() {
-    if (!this.state.timerRunning) {
-      return (
-        <button className="btn btn-primary me-3" onClick={() => {this.startCountdown()}}>
-          { !this.state.timerStarted
-            ? <span>Start</span>
-            : <span>Resume</span>
-          }
-        </button>
-      )
-    }
-  }
-
-  PauseButton() {
-    return (
-      <button className="btn btn-warning  me-3" onClick={() => {this.pauseCountdown()}}>
-        Pause
-      </button>
-    )
-  }
-
-  ResetButton() {
-    return (
-      <button 
-        className="btn btn-danger" 
-        onClick={() => {this.resetCountdown()}}>
-        Reset
-      </button>
-    )
-  }
-
-  TimerDecrease() {
-    return (
-      <button 
-        onClick={ () => { this.updateCounter(-1000)}}
-        className='btn btn-secondary px-3 fw-bolder'>
-          -
-      </button>
-    )
-  }
-
-  TimerIncrease() {
-    return (
-      <button 
-        onClick={ () => { this.updateCounter(1000)}}
-        className='btn btn-secondary px-3 fw-bolder'>
-          +
-      </button>
-    )
-  }
-
-  TimerEndMessage() {
-    if (this.state.timerReachedEnd) {
-      return <p className='mt-4'>Timer reached end</p>
-    }
-  }
-
-  SPRButtons() {
-    if (!this.state.timerReachedEnd) {
-      if (!this.state.timerRunning) {
-        return this.StartResumeButtons()
-      } else {
-        return this.PauseButton()
-      }
-    }
-  }
-
-  TimerButtons() {
-    return (
-      <div className='action-buttons-container'>
-        { this.SPRButtons() }
-        { this.ResetButton()}
-      </div>
-    )
-  }
 
   render() {
     return (
       <div className="countdown-container card bg-light h-100">
         <h1 className='mb-5'>Countdown</h1>
         <div className='d-flex justify-content-center'>
-          { this.TimerDecrease() }
+          <TimerDecrease onClick={() => {this.updateCounter(-1000)}}/>
           <TimerDisplay timer={this.state.timer}/>
-          { this.TimerIncrease() }
+          <TimerIncrease onClick={() => {this.updateCounter(1000)}}/>
         </div>
-        { this.TimerButtons()}
-        { this.TimerEndMessage()}
+        <div className='action-buttons-container'>
+          { !this.state.timerReachedEnd &&
+            ( !this.state.timerRunning
+              ? <StartResumeButtons onClick={this.startCountdown} timerStarted={!this.state.timerStarted}/>
+              : <PauseButton onClick={this.pauseCountdown}/>
+            )
+          }
+          <ResetButton onClick={this.resetCountdown}/>
+        </div>
+        { this.state.timerReachedEnd &&
+          <p className='mt-4'>Timer reached end</p>
+        }
       </div>
     );
   }
+}
+
+function TimerDecrease(props) {
+  return (
+    <button 
+    onClick={props.onClick}
+      className='btn btn-secondary px-3 fw-bolder'>
+        -
+    </button>
+  )
+}
+
+function TimerIncrease(props) {
+  return (
+    <button 
+      onClick={props.onClick}
+      className='btn btn-secondary px-3 fw-bolder'>
+        +
+    </button>
+  )
+}
+
+function PauseButton(props) {
+  return (
+    <button className="btn btn-warning  me-3" onClick={props.onClick}>
+      Pause
+    </button>
+  )
+}
+
+function ResetButton(props) {
+  return (
+    <button 
+      className="btn btn-danger" 
+      onClick={props.onClick}>
+      Reset
+    </button>
+  )
+}
+
+function StartResumeButtons(props) {
+  return (
+    <button className="btn btn-primary me-3" onClick={props.onClick}>
+      { props.timerStarted
+        ? <span>Start</span>
+        : <span>Resume</span>
+      }
+    </button>
+  )
 }
