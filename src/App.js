@@ -20,9 +20,6 @@ function App() {
         <div className="row d-flex justify-content-center">
           <div className="col-12 col-lg-6 mb-4">
             <Routes>
-              {/* <Route exact path="/">
-                <Redirect to="/countdown" />
-              </Route> */}
               <Route path="/" element={<Countdown />} />
               <Route path="clock" element={<Clock />} />
               <Route path="timer" element={<Timer />} />
