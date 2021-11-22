@@ -18,27 +18,27 @@ export default class Timer extends React.Component {
     clearInterval(this.timerInterval);
   }
 
-  tick() {
+  tick = () => {
     this.setState({
       timer: this.state.timer + 10
     });
   }
 
-  startTimer() {
+  startTimer = () => {
     this.setState({
       timerInterval: setInterval( () => this.tick(), 10 ),
       timerRunning: true
     });
   }
 
-  pauseTimer() {
+  pauseTimer = () => {
     clearInterval(this.state.timerInterval);
     this.setState({
       timerRunning: false
     })
   }
 
-  resetTimer() {
+  resetTimer = () => {
     clearInterval(this.state.timerInterval);
     this.setState({
       timer: 0,
@@ -47,52 +47,10 @@ export default class Timer extends React.Component {
     })
   }
 
-  registerSplit() {
+  registerSplit = () => {
     this.setState({
       splits: [...this.state.splits, this.state.timer]
     })
-  }
-
-  SplitDelta(props) {
-    let delta;
-    let className='ms-2 me-4';
-    if (props.index > 0) {
-      delta = msToTime(this.state.splits[props.index] - this.state.splits[props.index - 1], true)
-    } else {
-      delta = msToTime(this.state.splits[props.index], true)
-    }
-    return <span className={className}>{delta}</span>
-  }
-
-
-  Splits() {
-    const splits = this.state.splits.map((split, index) => 
-      <div className='split' key={split}>
-        <strong className='me-2'>#{index} </strong>
-        { this.SplitDelta(index={index}) }
-        <span className='text-muted'> {msToTime(split, true)} </span>
-      </div>
-    );
-    if (this.state.splits.length > 0) {
-      return (
-        <div>
-          <div className="card mt-4">
-            <h2 className='mt-4 mb-3'>Splits</h2>
-            {splits}
-          </div>
-        </div>
-      )
-    }
-  }
-
-  StartPauseButtons() {
-    let btn;
-    if (!this.state.timerRunning) {
-        btn = <button className="btn btn-primary" onClick={() => {this.startTimer()}}>Start</button>
-    } else {
-        btn = <button className="btn btn-warning ms-2" onClick={() => {this.pauseTimer()}}>Pause</button>
-    }
-    return btn;
   }
 
   render() {
@@ -103,7 +61,10 @@ export default class Timer extends React.Component {
           <TimerDisplay timer={this.state.timer} showMs="true"/>
         </div>
         <div className="top-buttons">
-          {this.StartPauseButtons()}
+          { !this.state.timerRunning
+            ? <StartButton onClick={this.startTimer}/>
+            : <PauseButton onClick={this.pauseTimer}/>
+          }
           <button className="btn btn-danger ms-2" onClick={() => {this.resetTimer()}}>Reset</button>
         </div>
         <div className="mt-4">
@@ -114,8 +75,59 @@ export default class Timer extends React.Component {
               Split
           </button>
         </div>
-        { this.Splits()}
+       
+        <div className="card mt-4">
+          <h2 className='mt-4 mb-3'>Splits</h2>
+          <Splits splits={this.state.splits}/>
+        </div>
       </div>
     );
   }
+}
+
+
+function PauseButton(props) {
+  return (
+    <button 
+      className="btn btn-warning" 
+      onClick={props.onClick}>
+        Pause
+    </button>
+  )
+}
+
+function StartButton(props) {
+  return (
+    <button 
+      className="btn btn-primary" 
+      onClick={props.onClick}>
+        Start
+    </button>
+  )
+}
+
+function SplitDelta(props) {
+  let delta;
+  
+  if (props.index > 0) {
+    delta = msToTime(props.splits[props.index] - props.splits[props.index - 1], true)
+  } else {
+    delta = msToTime(props.splits[props.index], true)
+  }
+
+  let className='ms-2 me-4';
+  return <span className={className}>{delta}</span>
+}
+
+function Splits(props) {
+  const splits = props.splits.map((split, index) => 
+  
+    <div className='split' key={split}>
+      <strong className='me-2'>#{index} </strong>
+      <SplitDelta splits={props.splits} index={index}/>
+      <span className='text-muted'> {msToTime(split, true)} </span>
+    </div>
+  )
+
+  return splits
 }
